@@ -75,4 +75,13 @@ public class SpringRabbitListener {
     public void listenObjectQueue(Map<String,Object> message) {
         log.info("消费者监听到topic.queue的消息：【{}】", message);
     }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "dlx.queue", declare = "true"),
+            exchange =  @Exchange(name = "dlx.direct", type = ExchangeTypes.DIRECT),
+            key = {"hi"}
+    ))
+    public void listenDlxQueue(String message) {
+        log.info("消费者监听到dlx.queue的消息：【{}】", message);
+    }
 }

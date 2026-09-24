@@ -3,6 +3,9 @@ package com.itheima.publisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,5 +119,13 @@ class SpringAmqpTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void testSendDelayMessage() {
+        rabbitTemplate.convertAndSend("normal.direct", "hi", "hello", message -> {
+            message.getMessageProperties().setExpiration("10000");
+            return message;
+        });
     }
 }
