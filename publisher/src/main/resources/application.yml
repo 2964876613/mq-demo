@@ -1,6 +1,8 @@
 logging:
   pattern:
     dateformat: MM-dd HH:mm:ss:SSS
+  level:
+    com.itheima: debug
 spring:
   rabbitmq:
     host: localhost # 你的虚拟机IP
@@ -13,3 +15,6 @@ spring:
       retry:
         enabled: true
         multiplier: 2
+        max-attempts: 3
+    publisher-confirm-type: correlated
+    publisher-returns: true
