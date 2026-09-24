@@ -84,4 +84,13 @@ public class SpringRabbitListener {
     public void listenDlxQueue(String message) {
         log.info("消费者监听到dlx.queue的消息：【{}】", message);
     }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "delay.queue", declare = "true"),
+            exchange =  @Exchange(name = "delay.direct", delayed = "true"),
+            key = {"hi"}
+    ))
+    public void listenDelayQueue(String message) {
+        log.info("消费者监听到delay.queue的消息：【{}】", message);
+    }
 }
