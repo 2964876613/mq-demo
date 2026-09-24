@@ -57,7 +57,6 @@ public class SpringRabbitListener {
             exchange =  @Exchange(name = "hmall.direct", type = ExchangeTypes.DIRECT),
             key = {"red", "yellow"}
     ))
-    @RabbitListener(queues = "direct.queue2")
     public void listenDirectQueue2(String message) {
         log.info("消费者2监听到direct.queue2的消息：【{}】", message);
     }
